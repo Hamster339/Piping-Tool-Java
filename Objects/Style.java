@@ -1,5 +1,7 @@
+package Objects;
+
 /**
- * The enum Style. represents the possible bagpipe tune styles
+ * The enum Objects.Style. represents the possible bagpipe tune styles
  */
 public enum Style {
     MARCH{

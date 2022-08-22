@@ -1,5 +1,7 @@
+package Objects;
+
 /**
- * The enum Timesig. Represents the possible time signatures of bagpipe tunes
+ * The enum Objects.Timesig. Represents the possible time signatures of bagpipe tunes
  */
 public enum Timesig {
     TWOTWO{

@@ -1,5 +1,7 @@
+package Objects;
+
 /**
- * The type Tune. Represents a bagpipe tune
+ * The type Objects.Tune. Represents a bagpipe tune
  */
 public class Tune {
 
@@ -9,7 +11,7 @@ public class Tune {
     private String sheetMusicLocation;
 
     /**
-     * Instantiates a new Tune.
+     * Instantiates a new Objects.Tune.
      *
      * @param name               the name
      * @param style              the style
