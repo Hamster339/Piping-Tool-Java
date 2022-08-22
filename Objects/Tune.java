@@ -31,7 +31,7 @@ public class Tune {
     }
 
     /**
-     * Gets name.
+     * Gets the name of the tune.
      *
      * @return the name
      */
@@ -40,7 +40,7 @@ public class Tune {
     }
 
     /**
-     * Sets name.
+     * Sets the name of the tune.
      *
      * @param name the name
      */
@@ -49,7 +49,7 @@ public class Tune {
     }
 
     /**
-     * Gets style.
+     * Gets the style of the tune.
      *
      * @return the style
      */
@@ -58,7 +58,7 @@ public class Tune {
     }
 
     /**
-     * Sets style.
+     * Sets the style of the tune.
      *
      * @param style the style
      */
@@ -67,7 +67,7 @@ public class Tune {
     }
 
     /**
-     * Gets time signature.
+     * Gets the time signature of the tune.
      *
      * @return the time signature
      */
@@ -76,7 +76,7 @@ public class Tune {
     }
 
     /**
-     * Sets time signature.
+     * Sets the time signature of the tune.
      *
      * @param timeSignature the time signature
      */
@@ -85,7 +85,7 @@ public class Tune {
     }
 
     /**
-     * Gets sheet music location.
+     * Gets the sheet music location of the tune.
      *
      * @return the sheet music location
      */
@@ -94,7 +94,7 @@ public class Tune {
     }
 
     /**
-     * Sets sheet music location.
+     * Sets the sheet music location of the tune.
      *
      * @param sheetMusicLocation the sheet music location
      */
