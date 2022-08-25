@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class List {
 
     private String name;
-    private ArrayList<Tune> tunes;
+    private final ArrayList<Tune> tunes;
 
     /**
      * Instantiates a new List.
