@@ -18,27 +18,27 @@ public class List {
      */
     public List(String name, ArrayList<Tune> tunes) {
         this.name = name;
-        this.tunes = tunes;
+        this.tunes = new ArrayList<>();
+        this.tunes.addAll(tunes);
     }
 
     /**
      * Add a tune to the list.
      *
      * @param tune the tune to add
-     * @return true if successful, false if not
      */
-    public boolean add(Tune tune){
-        return this.tunes.add(tune);
+    public void add(Tune tune){
+        this.tunes.add(tune);
     }
 
     /**
      * Remove a tune from the list
      *
      * @param pos the position of the tune to remove
-     * @return true if successful, false if not
      */
-    public boolean remove(int pos){
-        return this.tunes.remove(pos) != null;
+    public void remove(int pos){
+
+        this.tunes.remove(pos);
     }
 
     /**
@@ -46,23 +46,17 @@ public class List {
      *
      * @param pos1 the position of one tune
      * @param pos2 the position of the other
-     * @return true if successful, false if not
      */
-    public boolean swap(int pos1, int pos2){
-        try {
-            Tune temp = this.tunes.get(pos1);
-            this.tunes.set(pos1, this.tunes.get(pos2));
-            this.tunes.set(pos2, temp);
-            return true;
-        } catch (Exception e){
-            return false;
-        }
+    public void swap(int pos1, int pos2){
+        Tune temp = this.tunes.get(pos1);
+        this.tunes.set(pos1, this.tunes.get(pos2));
+        this.tunes.set(pos2, temp);
 
     }
 
     @Override
     public String toString() {
-        return "name";
+        return this.name;
     }
 
     /**
@@ -90,15 +84,6 @@ public class List {
      */
     public ArrayList<Tune> getTunes() {
         return tunes;
-    }
-
-    /**
-     * Sets ArrayList of tunes.
-     *
-     * @param tunes the tunes
-     */
-    public void setTunes(ArrayList<Tune> tunes) {
-        this.tunes = tunes;
     }
 
 
