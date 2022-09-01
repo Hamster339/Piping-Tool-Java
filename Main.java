@@ -7,20 +7,21 @@ import java.util.ArrayList;
 public class Main {
     
     public static void main(String[] args) {
+        //initialise with empty rep
+        Repertoire repertoire = new Repertoire(new ArrayList<>(), new ArrayList<>());
 
-        ArrayList<Tune> tunes = new ArrayList<>();
-        tunes.add(new Tune("Amazing Grace",Style.MARCH,Timesig.FOURFOUR,"Online"));
-        tunes.add(new Tune("Highland Cathedral",Style.MARCH,Timesig.FOURFOUR,"Online"));
-        tunes.add(new Tune("Itchy Figures",Style.HORNPIPE,Timesig.THREEFOUR,"Online"));
-        tunes.add(new Tune("Green Hills of Tyrol",Style.MARCH,Timesig.THREEFOUR,"Online"));
+        //load tunes from file
+        try{
+            repertoire.load();
+        } catch (IOException e){
+            System.out.println("An error occurred when loading");
+        }
 
-        ArrayList<List> lists = new ArrayList<>();
-        lists.add(new List("MASTER",tunes));
-        lists.add(new List("In Progress",new ArrayList<>(tunes.subList(0,2))));
-        lists.add(new List("Learnt",new ArrayList<>(tunes.subList(2,4))));
 
-        Repertoire repertoire = new Repertoire(tunes,lists);
+        repertoire.addTune(new Tune("Highland Harry",Style.STRATHSPAY,Timesig.SIXEIGHT,"Book"));
 
+
+        //save back to file
         try{
             repertoire.save();
             System.out.println("Save Successful");
@@ -28,6 +29,7 @@ public class Main {
             System.out.println("An error occurred when saving");
             System.out.println(e.getMessage());
         }
+
 
     }
 

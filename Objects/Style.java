@@ -57,5 +57,27 @@ public enum Style {
         public String toString() {
             return "Other";
         }
+    };
+
+    /**
+     * Convert String representation of style to enum value.
+     *
+     * @param ts the ts
+     * @return the style
+     */
+    public static Style convert(String ts){
+        return switch (ts) {
+            case "March" -> Style.MARCH;
+            case "Strathspay" -> Style.STRATHSPAY;
+            case "Reel" -> Style.REEL;
+            case "Waltz" -> Style.WALTZ;
+            case "Jig" -> Style.JIG;
+            case "Slow Air" -> Style.SLOWAIR;
+            case "Hornpipe" -> Style.HORNPIPE;
+            case "Pibroch" -> Style.PIBROCH;
+            case "Other" -> Style.OTHER;
+            default -> null;
+        };
     }
+
 }
