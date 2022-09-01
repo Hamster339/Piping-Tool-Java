@@ -10,10 +10,17 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
+/**
+ * The test class for the list object.
+ */
 public class ListTest {
 
-    List list = null;
-    ArrayList<Tune> tunes = null;
+    private List list = null;
+    private ArrayList<Tune> tunes = null;
+
+    /**
+     * Setup objects for test.
+     */
     @Before
     public void setup(){
         Tune tune1 = new Tune("Amazing Grace", Style.MARCH, Timesig.THREEFOUR,"online");
@@ -28,18 +35,27 @@ public class ListTest {
         list = new List("new list",tunes);
     }
 
+    /**
+     * Test list toString method.
+     */
     @Test
     public void testList_toString(){
 
         Assert.assertEquals(list.toString(),"new list");
     }
 
+    /**
+     * Test list get name method.
+     */
     @Test
     public void testList_getName(){
 
         Assert.assertEquals(list.getName(),"new list");
     }
 
+    /**
+     * Test list set name method.
+     */
     @Test
     public void testList_setName(){
 
@@ -48,12 +64,18 @@ public class ListTest {
         Assert.assertEquals(list.getName(),"old list");
     }
 
+    /**
+     * Test list get tunes method.
+     */
     @Test
     public void testList_getTunes(){
 
         Assert.assertEquals(list.getTunes(),tunes);
     }
 
+    /**
+     * Test list add method.
+     */
     @Test
     public void testList_add(){
 
@@ -63,6 +85,9 @@ public class ListTest {
         Assert.assertEquals(list.getTunes().get(list.getTunes().size()-1),newTune);
     }
 
+    /**
+     * Test list remove method.
+     */
     @Test
     public void testList_remove(){
         Tune tuneToRemove = list.getTunes().get(2);
@@ -72,6 +97,9 @@ public class ListTest {
         Assert.assertEquals(2, list.getTunes().size());
     }
 
+    /**
+     * Test list swap method.
+     */
     @Test
     public void testList_swap(){
 

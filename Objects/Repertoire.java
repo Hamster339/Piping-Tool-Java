@@ -44,6 +44,7 @@ public class Repertoire {
         //if not skip loading
         File dir = new File("Repertoire");
         if (!dir.isDirectory()){
+            System.out.println("Nothing to load");
             return;
         }
 
@@ -61,7 +62,7 @@ public class Repertoire {
             }
             myReader.close();
         } catch (FileNotFoundException e) {
-                System.out.println("Master File not found");
+                System.out.println("Master File not found, nothing to load");
                 System.out.println(e.getMessage());
                 return;
         }
@@ -86,10 +87,10 @@ public class Repertoire {
                         try {
                             String[] data = myReader.nextLine().split(",");
                             if (data.length!=4){
-                                System.out.println(data.length);
-                                throw new IndexOutOfBoundsException("Malformed File");
+                                throw new IndexOutOfBoundsException("Malformed File detected");
                             }
 
+                            boolean added = false;
                             for (Tune tune:this.masterList){
                                 if (tune.getName().equals(data[0])
                                         && tune.getStyle().equals(Style.convert(data[1]))
@@ -97,11 +98,18 @@ public class Repertoire {
                                         && tune.getSheetMusicLocation().equals(data[3]))
                                 {
                                     list.add(tune);
+                                    added = true;
+                                    break;
                                 }
                             }
-                        } catch (Exception e) {
-                            System.out.println("Malformed File detected");
+
+                            if (!added) {
+                                throw new IndexOutOfBoundsException(String.format("Tune in %s not is master list. File malformed",data[0]));
+                            }
+
+                        } catch (IndexOutOfBoundsException e) {;
                             System.out.println(e.getMessage());
+                            System.out.println("deleting Malformed File...");
                             if(file.delete()){
                                 System.out.println("Deleted Malformed File");
                             } else {
@@ -114,6 +122,7 @@ public class Repertoire {
                 }
 
             }
+            System.out.println("load Succeeded");
         }
     }
 
@@ -161,6 +170,7 @@ public class Repertoire {
             }
             myWriter.close();
         }
+        System.out.println("Save Succeeded");
 
     }
 
@@ -186,11 +196,10 @@ public class Repertoire {
     /**
      * Adds a new list to the repertoire.
      *
-     * @param name  the name of the list
-     * @param tunes the tunes to be added
+     * @param list  the list to be added
      */
-    public void addList(String name, ArrayList<Tune> tunes){
-        this.lists.add(new List(name,tunes));
+    public void addList(List list){
+        this.lists.add(list);
     }
 
     /**
