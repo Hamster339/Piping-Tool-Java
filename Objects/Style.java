@@ -3,6 +3,7 @@ package Objects;
 /**
  * The enum Objects.Style. represents the possible bagpipe tune styles
  */
+@SuppressWarnings("SpellCheckingInspection")
 public enum Style {
     MARCH{
         @Override

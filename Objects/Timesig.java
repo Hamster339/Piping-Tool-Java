@@ -3,6 +3,7 @@ package Objects;
 /**
  * The enum Objects.Timesig. Represents the possible time signatures of bagpipe tunes
  */
+@SuppressWarnings("SpellCheckingInspection")
 public enum Timesig {
     TWOTWO{
         @Override
