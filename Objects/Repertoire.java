@@ -48,6 +48,12 @@ public class Repertoire {
             return;
         }
 
+        //if no files to load, skip loading
+        File[] files = dir.listFiles();
+        if (files == null){
+            return;
+        }
+
         //load Master File
         try {
             Scanner myReader = new Scanner(new File("Repertoire/MASTER.prl"));
@@ -67,63 +73,67 @@ public class Repertoire {
                 return;
         }
 
-        //load Lists
-        File[] files = dir.listFiles();
-        if (files != null){
-            for (File file:files){
-                String name = file.getName();
+        //for every file in directory
+        for (File file:files){
+            String name = file.getName();
 
-                //if prl file, processes it, if not skip
-                if (name.endsWith(".prl")){
+            //if prl file, processes it, if not skip
+            if (!name.endsWith(".prl")) {
+                continue;
+            }
 
-                    //if master file skip
-                    if (name.equals("MASTER.prl")){
-                        continue;
+            //if master file skip
+            if (name.equals("MASTER.prl")){
+                continue;
+            }
+
+            //read all lines in file
+            Scanner myReader = new Scanner(file);
+            List list = new List(myReader.nextLine(),new ArrayList<>());
+            while (myReader.hasNextLine()) {
+                try {
+                    String[] data = myReader.nextLine().split(",");
+                    //if read data not in correct form, exit out with exception
+                    if (data.length!=4){
+                        throw new IndexOutOfBoundsException("Malformed File detected");
                     }
 
-                    Scanner myReader = new Scanner(file);
-                    List list = new List(myReader.nextLine(),new ArrayList<>());
-                    while (myReader.hasNextLine()) {
-                        try {
-                            String[] data = myReader.nextLine().split(",");
-                            if (data.length!=4){
-                                throw new IndexOutOfBoundsException("Malformed File detected");
-                            }
-
-                            boolean added = false;
-                            for (Tune tune:this.masterList){
-                                if (tune.getName().equals(data[0])
-                                        && tune.getStyle().equals(Style.convert(data[1]))
-                                        && tune.getTimeSignature().equals(Timesig.convert(data[2]))
-                                        && tune.getSheetMusicLocation().equals(data[3]))
-                                {
-                                    list.add(tune);
-                                    added = true;
-                                    break;
-                                }
-                            }
-
-                            if (!added) {
-                                throw new IndexOutOfBoundsException(String.format("Tune in %s not is master list. File malformed",data[0]));
-                            }
-
-                        } catch (IndexOutOfBoundsException e) {;
-                            System.out.println(e.getMessage());
-                            System.out.println("deleting Malformed File...");
-                            if(file.delete()){
-                                System.out.println("Deleted Malformed File");
-                            } else {
-                                System.out.println("Could not delete malformed file");
-                            }
+                    //find corresponding tune in the master list, and add a copy of that to the list
+                    //This way only one tune object is created per tune
+                    boolean added = false;
+                    for (Tune tune:this.masterList){
+                        if (tune.getName().equals(data[0])
+                                && tune.getStyle().equals(Style.convert(data[1]))
+                                && tune.getTimeSignature().equals(Timesig.convert(data[2]))
+                                && tune.getSheetMusicLocation().equals(data[3]))
+                        {
+                            list.add(tune);
+                            added = true;
                             break;
                         }
                     }
-                    this.lists.add(list);
-                }
 
+                    //if tune in list and not in master list, file is considered malformed. exit out with exception
+                    if (!added) {
+                        throw new IndexOutOfBoundsException(String.format("Tune in %s not is master list. File malformed",data[0]));
+                    }
+
+                // if any errors, deal with them
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println(e.getMessage());
+                    System.out.println("deleting Malformed File...");
+                    if(file.delete()){
+                        System.out.println("Deleted Malformed File");
+                    } else {
+                        System.out.println("Could not delete malformed file");
+                    }
+                    break;
+                }
             }
-            System.out.println("load Succeeded");
+            this.lists.add(list);
+
         }
+        System.out.println("load Succeeded");
     }
 
     /**
