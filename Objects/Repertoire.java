@@ -22,14 +22,12 @@ public class Repertoire {
     ArrayList<List> lists;
 
     /**
-     * Instantiates a new Repertoire.
+     * Instantiates a new blank Repertoire.
      *
-     * @param masterList the master list
-     * @param lists      the lists
      */
-    public Repertoire(ArrayList<Tune> masterList, ArrayList<List> lists){
-        this.masterList = masterList;
-        this.lists = lists;
+    public Repertoire(){
+        this.masterList =  new ArrayList<>();
+        this.lists = new ArrayList<>();
 
     }
 
