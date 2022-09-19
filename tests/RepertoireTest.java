@@ -26,7 +26,7 @@ public class RepertoireTest {
      */
     @Before
     public  void setup(){
-        rep = new Repertoire(new ArrayList<>(),new ArrayList<>());
+        rep = new Repertoire();
 
         File repDir = new File("/home/hamster339/Documents/Projects/Piping_Tune_List/Repertoire");
         if (repDir.exists()){
@@ -184,7 +184,7 @@ public class RepertoireTest {
 
         inputData();
         rep.save();
-        rep = new Repertoire(new ArrayList<>(),new ArrayList<>());
+        rep = new Repertoire();
 
         rep.load();
 

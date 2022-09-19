@@ -36,7 +36,7 @@ public class Repertoire {
      *
      * @throws IOException the io exception
      */
-    public void load() throws IOException{
+    public void load(){
 
         //check if directory exists,
         //if not skip loading
@@ -86,7 +86,14 @@ public class Repertoire {
             }
 
             //read all lines in file
-            Scanner myReader = new Scanner(file);
+            Scanner myReader;
+            try {
+                myReader = new Scanner(file);
+            } catch (FileNotFoundException e) {
+                System.out.printf("error reading file: %s",file.getName());
+                continue;
+            }
+
             List list = new List(myReader.nextLine(),new ArrayList<>());
             while (myReader.hasNextLine()) {
                 try {
