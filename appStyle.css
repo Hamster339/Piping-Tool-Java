@@ -1,0 +1,26 @@
+.list {
+    -fx-border-color: black;
+    -fx-border-style: solid;
+    -fx-border-width: 5px;
+}
+.title-box {
+    -fx-alignment: center;
+    -fx-padding: 10px;
+
+    -fx-border-color: black;
+    -fx-border-width: 0 0 2 0;
+
+}
+
+.list-title{
+    -fx-font-size: 25;
+    -fx-font-weight: bold;
+}
+
+.tune-box {
+    -fx-padding: 10px;
+}
+
+.tune-text {
+    -fx-font-size: 20;
+}
