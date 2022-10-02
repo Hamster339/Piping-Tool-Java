@@ -34,7 +34,6 @@ public class Repertoire {
     /**
      * Loads The repertoire from disk
      *
-     * @throws IOException the io exception
      */
     public void load(){
 
@@ -95,6 +94,7 @@ public class Repertoire {
             }
 
             List list = new List(myReader.nextLine(),new ArrayList<>());
+            boolean error = false;
             while (myReader.hasNextLine()) {
                 try {
                     String[] data = myReader.nextLine().split(",");
@@ -125,6 +125,7 @@ public class Repertoire {
 
                 // if any errors, deal with them
                 } catch (IndexOutOfBoundsException e) {
+                    error = true;
                     System.out.println(e.getMessage());
                     System.out.println("deleting Malformed File...");
                     if(file.delete()){
@@ -135,7 +136,9 @@ public class Repertoire {
                     break;
                 }
             }
-            this.lists.add(list);
+            if (!error){
+                this.lists.add(list);
+            }
 
         }
         System.out.println("load Succeeded");

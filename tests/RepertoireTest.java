@@ -1,14 +1,11 @@
 package tests;
 
 import Objects.*;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -21,11 +18,28 @@ public class RepertoireTest {
 
     private Repertoire rep;
 
+    @BeforeClass
+    public static void saveFiles() throws IOException {
+        File repDir = new File("/home/hamster339/Documents/Projects/Piping_Tune_List/Repertoire");
+        if (repDir.exists()){
+            for (File f: Objects.requireNonNull(repDir.listFiles())) {
+                Scanner r = new Scanner(f);
+                new File("/home/hamster339/Documents/Projects/Piping_Tune_List/temp/").mkdir();
+                FileWriter w = new FileWriter(String.format("/home/hamster339/Documents/Projects/Piping_Tune_List/temp/%s",f.getName()));
+                while (r.hasNextLine()){
+                    w.write(r.nextLine()+"\n");
+                }
+                w.close();
+                r.close();
+            }
+        }
+    }
+
     /**
      * Initialises repertoire object and clears save files before each test.
      */
     @Before
-    public  void setup(){
+    public void setup(){
         rep = new Repertoire();
 
         File repDir = new File("/home/hamster339/Documents/Projects/Piping_Tune_List/Repertoire");
@@ -34,6 +48,25 @@ public class RepertoireTest {
                 f.delete();
             }
             repDir.delete();
+        }
+    }
+
+    @AfterClass
+    public static void restoreFiles() throws IOException {
+        File tempDir = new File("/home/hamster339/Documents/Projects/Piping_Tune_List/temp");
+        if (tempDir.exists()){
+            for (File f: Objects.requireNonNull(tempDir.listFiles())) {
+                Scanner r = new Scanner(f);
+                new File("/home/hamster339/Documents/Projects/Piping_Tune_List/Repertoire/").mkdir();
+                FileWriter w = new FileWriter(String.format("/home/hamster339/Documents/Projects/Piping_Tune_List/Repertoire/%s",f.getName()));
+                while (r.hasNextLine()){
+                    w.write(r.nextLine()+"\n");
+                }
+                w.close();
+                r.close();
+                f.delete();
+            }
+            tempDir.delete();
         }
     }
 
@@ -108,7 +141,7 @@ public class RepertoireTest {
      */
     @Test
     public void testRepertoire_Save_TestCreatesFiles() throws IOException {
-        inputData();
+        inputData(rep);
 
         rep.save();
 
@@ -132,7 +165,7 @@ public class RepertoireTest {
      */
     @Test
     public void testRepertoire_Save_TestCorrectContent() throws IOException {
-        inputData();
+        inputData(rep);
         rep.save();
 
         TestFiles("MASTER.prl");
@@ -182,7 +215,7 @@ public class RepertoireTest {
     @Test
     public void testRepertoire_Load_WithData() throws IOException {
 
-        inputData();
+        inputData(rep);
         rep.save();
         rep = new Repertoire();
 
@@ -226,7 +259,7 @@ public class RepertoireTest {
     @Test
     public void testRepertoire_Load_malformedFileRemoved() throws IOException {
 
-        inputData();
+        inputData(rep);
         rep.save();
 
         FileWriter writer = new FileWriter("/home/hamster339/Documents/Projects/Piping_Tune_List/Repertoire/test.prl");
@@ -245,7 +278,7 @@ public class RepertoireTest {
      */
     @Test
     public void testRepertoire_Load_ListTuneNotInMasterListRemoved() throws IOException {
-        inputData();
+        inputData(rep);
         rep.getLists().get(0).add(new Tune("test",Style.MARCH,Timesig.FOURFOUR,"test"));
         rep.save();
 
@@ -276,7 +309,7 @@ public class RepertoireTest {
     }
 
     //helper function
-    private void inputData()  {
+    protected static void inputData(Repertoire rep)  {
         rep.addList("In progress");
         rep.addList("Learnt");
 
