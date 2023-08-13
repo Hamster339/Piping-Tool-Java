@@ -20,12 +20,12 @@ public class RepertoireTest {
 
     @BeforeClass
     public static void saveFiles() throws IOException {
-        File repDir = new File("/home/hamster339/Documents/Projects/Piping_Tune_List/Repertoire");
+        File repDir = new File("/C:/Users/Work/Documents/Git projects/Pipeing Project/Piping_Tune_List/Repertoire");
         if (repDir.exists()){
             for (File f: Objects.requireNonNull(repDir.listFiles())) {
                 Scanner r = new Scanner(f);
-                new File("/home/hamster339/Documents/Projects/Piping_Tune_List/temp/").mkdir();
-                FileWriter w = new FileWriter(String.format("/home/hamster339/Documents/Projects/Piping_Tune_List/temp/%s",f.getName()));
+                new File("/C:/Users/Work/Documents/Git projects/Pipeing Project/Piping_Tune_List//temp/").mkdir();
+                FileWriter w = new FileWriter(String.format("/C:/Users/Work/Documents/Git projects/Pipeing Project/Piping_Tune_List//temp/%s",f.getName()));
                 while (r.hasNextLine()){
                     w.write(r.nextLine()+"\n");
                 }
@@ -42,7 +42,7 @@ public class RepertoireTest {
     public void setup(){
         rep = new Repertoire();
 
-        File repDir = new File("/home/hamster339/Documents/Projects/Piping_Tune_List/Repertoire");
+        File repDir = new File("/C:/Users/Work/Documents/Git projects/Pipeing Project/Piping_Tune_List/Repertoire");
         if (repDir.exists()){
             for (File f: Objects.requireNonNull(repDir.listFiles())) {
                 f.delete();
@@ -53,12 +53,12 @@ public class RepertoireTest {
 
     @AfterClass
     public static void restoreFiles() throws IOException {
-        File tempDir = new File("/home/hamster339/Documents/Projects/Piping_Tune_List/temp");
+        File tempDir = new File("/C:/Users/Work/Documents/Git projects/Pipeing Project/Piping_Tune_List/temp");
         if (tempDir.exists()){
             for (File f: Objects.requireNonNull(tempDir.listFiles())) {
                 Scanner r = new Scanner(f);
-                new File("/home/hamster339/Documents/Projects/Piping_Tune_List/Repertoire/").mkdir();
-                FileWriter w = new FileWriter(String.format("/home/hamster339/Documents/Projects/Piping_Tune_List/Repertoire/%s",f.getName()));
+                new File("/C:/Users/Work/Documents/Git projects/Pipeing Project/Piping_Tune_List/Repertoire/").mkdir();
+                FileWriter w = new FileWriter(String.format("/C:/Users/Work/Documents/Git projects/Pipeing Project/Piping_Tune_List/Repertoire/%s",f.getName()));
                 while (r.hasNextLine()){
                     w.write(r.nextLine()+"\n");
                 }
@@ -145,7 +145,7 @@ public class RepertoireTest {
 
         rep.save();
 
-        File dir = new File("/home/hamster339/Documents/Projects/Piping_Tune_List/Repertoire");
+        File dir = new File("/C:/Users/Work/Documents/Git projects/Pipeing Project/Piping_Tune_List/Repertoire");
         Assert.assertTrue(dir.isDirectory());
         Assert.assertEquals(3, dir.listFiles().length);
 
@@ -181,17 +181,17 @@ public class RepertoireTest {
     @Test
     public void testRepertoire_Save_TestDirCleared() throws IOException {
 
-        boolean b = new File("/home/hamster339/Documents/Projects/Piping_Tune_List/Repertoire/").mkdir();
+        boolean b = new File("C:/Users/Work/Documents/Git projects/Pipeing Project/Piping_Tune_List/Repertoire").mkdir();
 
-        FileWriter writer = new FileWriter("/home/hamster339/Documents/Projects/Piping_Tune_List/Repertoire/test.txt");
+        FileWriter writer = new FileWriter("C:/Users/Work/Documents/Git projects/Pipeing Project/Piping_Tune_List/Repertoire/test.txt");
         writer.close();
 
         rep.save();
 
-        File dir = new File("/home/hamster339/Documents/Projects/Piping_Tune_List/Repertoire/");
+        File dir = new File("C:/Users/Work/Documents/Git projects/Pipeing Project/Piping_Tune_List/Repertoire/");
 
 
-        Assert.assertFalse(new File("/home/hamster339/Documents/Projects/Piping_Tune_List/Repertoire/test.txt").exists());
+        Assert.assertFalse(new File("C:/Users/Work/Documents/Git projects/Pipeing Project/Piping_Tune_List/Repertoire/test.txt").exists());
     }
 
     /**
@@ -262,13 +262,13 @@ public class RepertoireTest {
         inputData(rep);
         rep.save();
 
-        FileWriter writer = new FileWriter("/home/hamster339/Documents/Projects/Piping_Tune_List/Repertoire/test.prl");
+        FileWriter writer = new FileWriter("/C:/Users/Work/Documents/Git projects/Pipeing Project/Piping_Tune_List/Repertoire/test.prl");
         writer.write("hel,o\nh,ey,y");
         writer.close();
 
         rep.load();
 
-        Assert.assertFalse(new File("/home/hamster339/Documents/Projects/Piping_Tune_List/Repertoire/test.prl").exists());
+        Assert.assertFalse(new File("C:/Users/Work/Documents/Git projects/Pipeing Project/Piping_Tune_List/Repertoire/test.prl").exists());
     }
 
     /**
@@ -284,19 +284,19 @@ public class RepertoireTest {
 
         rep.load();
 
-        Assert.assertFalse(new File(String.format("/home/hamster339/Documents/Projects/Piping_Tune_List/Repertoire/%s.prl",rep.getLists().get(0).getName())).exists());
+        Assert.assertFalse(new File(String.format("/C:/Users/Work/Documents/Git projects/Pipeing Project/Piping_Tune_List/Repertoire/%s.prl",rep.getLists().get(0).getName())).exists());
     }
 
     //helper function
     private  void TestFiles(String name) throws FileNotFoundException {
-        File file = new File(String.format("/home/hamster339/Documents/Projects/Piping_Tune_List/Repertoire/%s",name));
+        File file = new File(String.format("C:/Users/Work/Documents/Git projects/Pipeing Project/Piping_Tune_List/Repertoire/%s",name));
         Scanner reader = new Scanner(file);
         String actualData = "";
         while (reader.hasNextLine()){
             actualData = actualData + reader.nextLine();
         }
 
-        file = new File(String.format("/home/hamster339/Documents/Projects/Piping_Tune_List/tests/testFiles/%s",name));
+        file = new File(String.format("C:/Users/Work/Documents/Git projects/Pipeing Project/Piping_Tune_List/tests/testFiles/%s",name));
         reader = new Scanner(file);
         String expectedData = "";
         while (reader.hasNextLine()){

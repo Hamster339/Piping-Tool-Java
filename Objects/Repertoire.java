@@ -61,6 +61,7 @@ public class Repertoire {
                 }
 
             } else{
+                myReader.close();
                 throw new FileNotFoundException("master file exits but is malformed");
             }
             myReader.close();
@@ -125,6 +126,7 @@ public class Repertoire {
 
                 // if any errors, deal with them
                 } catch (IndexOutOfBoundsException e) {
+                    myReader.close();
                     error = true;
                     System.out.println(e.getMessage());
                     System.out.println("deleting Malformed File...");
@@ -139,6 +141,7 @@ public class Repertoire {
             if (!error){
                 this.lists.add(list);
             }
+            myReader.close();
 
         }
         System.out.println("load Succeeded");
@@ -163,6 +166,7 @@ public class Repertoire {
         File[] files = dir.listFiles();
         if (files != null){
             for (File file: files) {
+                System.out.println(file.getName());
                 if(!file.delete()){
                     System.out.println("Failed to remove File");
                 }
@@ -189,6 +193,7 @@ public class Repertoire {
             myWriter.close();
         }
         System.out.println("Save Succeeded");
+        myWriter.close();
 
     }
 

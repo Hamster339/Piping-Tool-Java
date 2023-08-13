@@ -1,3 +1,7 @@
+.tool-bar {
+    -fx-background-color: grey;
+}
+
 .list {
     -fx-border-color: black;
     -fx-border-style: solid;

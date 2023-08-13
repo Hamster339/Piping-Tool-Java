@@ -4,11 +4,15 @@ import Objects.List;
 import Objects.Repertoire;
 import Objects.Tune;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.control.ToolBar;
+import javafx.scene.control.Button;
 
 /**
  * The type Piping tool. Represents the program window.
@@ -39,6 +43,12 @@ public class PipingTool extends Application {
         Scene scene = new Scene(root,1500,1000);
         scene.getStylesheets().add("appStyle.css");
 
+        ToolBar toolBar = new ToolBar(
+                new Button("New")
+        );
+        toolBar.getStyleClass().add("toolbar");
+        root.getChildren().add(toolBar);
+
         displayLists(root,rep);
 
         primaryStage.setTitle("Piping Repertoire tool");
@@ -56,11 +66,10 @@ public class PipingTool extends Application {
     public void displayLists (Group root, Repertoire rep) {
         //Position of first list
         int x = 10;
-        int y = 10;
+        int y = 100;
         //iterate over the lists to display them
         for (List list : rep.getLists()) {
             VBox listBox = new VBox();
-
 
             VBox titleBox = new VBox();
             titleBox.getStyleClass().add("title-box");
@@ -85,9 +94,19 @@ public class PipingTool extends Application {
 
             listBox.setLayoutX(x);
             listBox.setLayoutY(y);
-            x += 220;
+            x += 240;
             listBox.getStyleClass().add("list");
             root.getChildren().add(listBox);
+
+            listBox.setOnMouseDragged(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    System.out.println("dragged");
+                    listBox.setLayoutX(mouseEvent.getSceneX());
+                    listBox.setLayoutY(mouseEvent.getSceneY());
+
+                }
+            });
         }
     }
 }
