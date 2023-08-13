@@ -3,8 +3,6 @@ A program that enables you to record all the tunes a piper knows in an easy to m
 
 Please refer to the [wiki](https://github.com/Hamster339/Piping_Tune_List/wiki) for all infomation about this project
 
-Development stoped. Moved to another project
-
 ## Requirements
 * Java SDK 19
 * Javafx
