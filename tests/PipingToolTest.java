@@ -20,7 +20,7 @@ public class PipingToolTest {
         RepertoireTest.inputData(rep);
 
         PipingTool p = new PipingTool();
-        p.displayLists(root,rep);
+        p.displayLists();
     }
 
     @Test

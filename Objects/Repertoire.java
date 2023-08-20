@@ -174,8 +174,7 @@ public class Repertoire {
         }
 
         //Write master list.
-        //list name cannot be "MASTER". must be enforced somewhere
-        //no item can include ,
+        //list name cannot be "MASTER". enforces in list creation validation
         FileWriter myWriter = new FileWriter("Repertoire/MASTER.prl");
         myWriter.write(String.format("%s\n","MASTER"));
         for (Tune tune:masterList) {

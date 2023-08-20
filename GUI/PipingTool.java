@@ -5,14 +5,17 @@ import Objects.Repertoire;
 import Objects.Tune;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.control.ToolBar;
-import javafx.scene.control.Button;
+
+import java.io.IOException;
 
 /**
  * The type Piping tool. Represents the program window.
@@ -20,6 +23,11 @@ import javafx.scene.control.Button;
 public class PipingTool extends Application {
 
     private Repertoire rep;
+
+    private Group root;
+
+    private static PipingTool instance;
+
 
     /**
      * The entry point of application.
@@ -39,31 +47,34 @@ public class PipingTool extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        Group root = new Group();
-        Scene scene = new Scene(root,1500,1000);
-        scene.getStylesheets().add("appStyle.css");
+        //load fxml page, display the lists on it and show
+        try{
 
-        ToolBar toolBar = new ToolBar(
-                new Button("New")
-        );
-        toolBar.getStyleClass().add("toolbar");
-        root.getChildren().add(toolBar);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainPage.fxml"));
+            fxmlLoader.setController(new MainPageController(this));
+            root = fxmlLoader.load();
 
-        displayLists(root,rep);
+            Scene scene = new Scene(root,1500,1000);
+            scene.getStylesheets().add("appStyle.css");
 
-        primaryStage.setTitle("Piping Repertoire tool");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+            displayLists();
+
+            primaryStage.setTitle("Piping Repertoire tool");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+        } catch (IOException e) {
+            System.out.println("Error fxml file for main page not found");
+            System.out.println(e.getMessage());
+        }
 
     }
 
     /**
      * Displays the lists in the Repertoire object on the screen
      *
-     * @param root the root object of the window
-     * @param rep the Repertoire that contains the lists to be displayed
      */
-    public void displayLists (Group root, Repertoire rep) {
+    public void displayLists() {
         //Position of first list
         int x = 10;
         int y = 100;
@@ -108,5 +119,25 @@ public class PipingTool extends Application {
                 }
             });
         }
+    }
+
+    public void DisplayNewListPage(){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("NewListWindow.fxml"));
+            fxmlLoader.setController(new NewListWindowController(this));
+            Parent NewListRoot = fxmlLoader.load();
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("New List");
+            stage.setScene(new Scene(NewListRoot, 450, 450));
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Error fxml file for new list page not found");
+            System.out.println(e.getMessage());
+        }
+    }
+    public Repertoire getRep() {
+        return rep;
     }
 }

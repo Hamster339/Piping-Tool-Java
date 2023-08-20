@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<GridPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            alignment="center" hgap="10" vgap="10">
+
+    <Text text="Create New List"
+          GridPane.columnIndex="0" GridPane.rowIndex="0"
+          GridPane.columnSpan="2"/>
+
+    <Label text="Enter List Name"
+           GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+
+    <TextField fx:id="listName"
+            GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+    <HBox spacing="10" alignment="bottom_right"
+          GridPane.columnIndex="1" GridPane.rowIndex="4">
+        <Button text="Add" fx:id="addButton"
+                onAction="#handleAddNewList"/>
+    </HBox>
+
+    <Text fx:id="HelpText"
+          GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+
+</GridPane>

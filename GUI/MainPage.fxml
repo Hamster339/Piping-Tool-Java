@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+
+<Group xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+
+    <ToolBar>
+        <Button text="New List" fx:id="NewListButton"
+                onAction="#openNewListWindow"/>
+    </ToolBar>
+
+</Group>
