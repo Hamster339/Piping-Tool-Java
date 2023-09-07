@@ -3,10 +3,12 @@ package GUI;
 import com.sun.jdi.request.ClassPrepareRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Objects;
 
 public class NewListWindowController {
@@ -17,7 +19,7 @@ public class NewListWindowController {
     @FXML private Text HelpText;
 
     // represents the submit button
-    @FXML private Text addButton;
+    @FXML private Button addButton;
 
     private final PipingTool mainController;
 
@@ -26,6 +28,7 @@ public class NewListWindowController {
     }
 
     @FXML protected void handleAddNewList(ActionEvent event) {
+
         if (Objects.equals(listName.getText(), "")){
             HelpText.setText("List names cannot be blank");
         } else if (Objects.equals(listName.getText(), "MASTER")) {
@@ -35,6 +38,12 @@ public class NewListWindowController {
 
             Stage stage = (Stage) addButton.getScene().getWindow();
             mainController.displayLists();
+            try {
+                mainController.getRep().save();
+            } catch (IOException e) {
+                System.out.println("problem Saving");
+                System.out.println(e.getMessage());
+            }
             stage.close();
         }
     }

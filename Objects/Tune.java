@@ -8,7 +8,7 @@ public class Tune {
     private String name;
     private Style style;
     private Timesig timeSignature;
-    private String sheetMusicLocation;
+    private String notes;
 
     /**
      * Instantiates a new Objects.Tune.
@@ -16,13 +16,13 @@ public class Tune {
      * @param name               the name
      * @param style              the style
      * @param timeSignature      the time signature
-     * @param sheetMusicLocation the sheet music location
+     * @param notes              Notes as a string
      */
-    public Tune(String name,Style style,Timesig timeSignature,String sheetMusicLocation){
+    public Tune(String name,Style style,Timesig timeSignature,String notes){
         this.name = name;
         this.style = style;
         this.timeSignature = timeSignature;
-        this.sheetMusicLocation = sheetMusicLocation;
+        this.notes = notes;
     }
 
     @Override
@@ -90,7 +90,7 @@ public class Tune {
      * @return the sheet music location
      */
     public String getSheetMusicLocation() {
-        return sheetMusicLocation;
+        return notes;
     }
 
     /**
@@ -99,6 +99,6 @@ public class Tune {
      * @param sheetMusicLocation the sheet music location
      */
     public void setSheetMusicLocation(String sheetMusicLocation) {
-        this.sheetMusicLocation = sheetMusicLocation;
+        this.notes = sheetMusicLocation;
     }
 }

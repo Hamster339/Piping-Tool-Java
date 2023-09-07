@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<GridPane fx:id="grid" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+          alignment="center" hgap="10" vgap="10">
+    <ComboBox promptText="Select Tune" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" fx:id="selector" />
+    <Button text="Add" fx:id="addTuneButton" onAction="#addTune" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+    <Button text="Create New Tune" fx:id="createTuneButton" onAction="#createTune" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <Text GridPane.columnIndex="0" GridPane.rowIndex="2" fx:id="message"/>
+
+</GridPane>

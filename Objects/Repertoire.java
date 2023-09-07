@@ -224,6 +224,16 @@ public class Repertoire {
         this.lists.add(list);
     }
 
+
+    /**
+     * Removed A list From the repertoire.
+     *
+     * @param list  the list to be removed
+     */
+    public void DelList(List list){
+        this.lists.remove(list);
+    }
+
     /**
      * Gets master list.
      *

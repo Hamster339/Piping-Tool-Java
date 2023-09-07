@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          alignment="center" hgap="10" vgap="10">
+
+    <Text text="Create New Tune" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+
+    <Label text="Tune Name" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+    <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="nameField" promptText="Enter Name"/>
+
+    <Label text="Tune Style" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+    <ComboBox promptText="Select Style" GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="styleSelector" />
+
+    <Label text="TimeSignature" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+    <ComboBox promptText="Select Time Signature" GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="timeSigSelector" />
+
+    <Label text="Notes" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+    <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="notesField" promptText="Enter anything else about the tune"/>
+
+    <Button text="Create" fx:id="createButton" onAction="#handleCreateNewTune" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+
+    <Label fx:id="helpText" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+
+</GridPane>
