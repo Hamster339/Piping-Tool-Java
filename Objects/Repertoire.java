@@ -221,6 +221,15 @@ public class Repertoire {
         this.masterList.add(tune);
     }
 
+    /**
+     * deletes a new tune from the master list of the repertoire.
+     *
+     * @param tune the tune
+     */
+    public void delTune(Tune tune){
+        this.masterList.remove(tune);
+    }
+
 
     /**
      * Adds a new empty list to the repertoire.

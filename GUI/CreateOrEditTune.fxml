@@ -7,7 +7,7 @@
           xmlns:fx="http://javafx.com/fxml"
           alignment="center" hgap="10" vgap="10">
 
-    <Text text="Create New Tune" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+    <Text text="Create New Tune" fx:id="Title" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
 
     <Label text="Tune Name" GridPane.columnIndex="0" GridPane.rowIndex="1" />
     <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="nameField" promptText="Enter Name"/>
@@ -21,7 +21,7 @@
     <Label text="Notes" GridPane.columnIndex="0" GridPane.rowIndex="4" />
     <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="notesField" promptText="Enter anything else about the tune"/>
 
-    <Button text="Create" fx:id="createButton" onAction="#handleCreateNewTune" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+    <Button text="Create" fx:id="createButton" onAction="#handleCreateOrEditTune" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
 
     <Label fx:id="helpText" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
 

@@ -3,15 +3,13 @@ package GUI;
 import Objects.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -134,6 +132,14 @@ public class PipingTool extends Application {
                 tuneDelButton.setOnAction(new MainPageController(this)::handleDeleteTune);
                 tuneBox.getChildren().add(tuneDelButton);
 
+                //event handler for opening edit page which tune clicked on
+                tuneText.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        displayEditWindow(t);
+                    }
+                });
+
                 listBox.getChildren().add(tuneBox);
 
                 count++;
@@ -202,9 +208,9 @@ public class PipingTool extends Application {
 
     public void DisplayNewTunePage(List list) {
         try {
-            FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("NewTune.fxml"));
-            fxmlLoader2.setController(new NewTuneController(this,list));
-            GridPane AddTuneRoot = fxmlLoader2.load();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("NewTune.fxml"));
+            fxmlLoader.setController(new NewTuneController(this,list));
+            GridPane AddTuneRoot = fxmlLoader.load();
 
             ComboBox <Tune> selector = (ComboBox) AddTuneRoot.lookup("#selector");
             selector.setItems(FXCollections.observableList(getRep().getMasterList()));
@@ -223,9 +229,9 @@ public class PipingTool extends Application {
 
     public void DisplayCreateTunePage(NewTuneController parentController){
         try {
-            FXMLLoader fxmlLoader3 = new FXMLLoader(getClass().getResource("CreateTune.fxml"));
-            fxmlLoader3.setController(new CreateTuneController(this,parentController));
-            GridPane CreateTuneRoot = fxmlLoader3.load();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateOrEditTune.fxml"));
+            fxmlLoader.setController(new CreateTuneController(this,parentController));
+            GridPane CreateTuneRoot = fxmlLoader.load();
 
             ComboBox <Style> StyleSelector = (ComboBox) CreateTuneRoot.lookup("#styleSelector");
             StyleSelector.setItems(FXCollections.observableList(new ArrayList<Style>(java.util.List.of(Style.values()))));
@@ -245,6 +251,47 @@ public class PipingTool extends Application {
         }
     }
 
+    public void displayEditWindow(Tune t) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateOrEditTune.fxml"));
+            fxmlLoader.setController(new EditTuneController(this, t));
+            GridPane EditTuneRoot = fxmlLoader.load();
+
+            ComboBox <Style> StyleSelector = (ComboBox) EditTuneRoot.lookup("#styleSelector");
+            StyleSelector.setItems(FXCollections.observableList(new ArrayList<Style>(java.util.List.of(Style.values()))));
+
+            ComboBox <Timesig> timeSigSelector = (ComboBox) EditTuneRoot.lookup("#timeSigSelector");
+            timeSigSelector.setItems(FXCollections.observableList(new ArrayList<Timesig>(java.util.List.of(Timesig.values()))));
+
+            //rename things in reused fxml file
+            Button updateButton = (Button) EditTuneRoot.lookup("#createButton");
+            updateButton.setText("Update");
+
+            Text title = (Text) EditTuneRoot.lookup("#Title");
+            title.setText("Edit Tune");
+
+            //Set current values
+            TextField nameField = (TextField) EditTuneRoot.lookup("#nameField");
+            nameField.setText(t.getName());
+
+            StyleSelector.setValue(t.getStyle());
+            timeSigSelector.setValue(t.getTimeSignature());
+
+            TextField notesField = (TextField) EditTuneRoot.lookup("#notesField");
+            notesField.setText(t.getSheetMusicLocation());
+
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Edit Tune");
+            stage.setScene(new Scene(EditTuneRoot, 400, 300));
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Error fxml file for edit tune page not found or error");
+            System.out.println(e.getMessage());
+
+        }
+    }
     public Repertoire getRep() {
         return rep;
     }
