@@ -2,6 +2,7 @@ package GUI;
 
 import Objects.List;
 import Objects.Tune;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -47,7 +48,12 @@ public class NewTuneController {
     }
 
     @FXML protected void createTune(ActionEvent event) {
-        mainController.DisplayCreateTunePage();
+        mainController.DisplayCreateTunePage(this);
+    }
+
+    //refreshes the list of available tunes
+    protected void refresh(){
+        selector.setItems(FXCollections.observableList(mainController.getRep().getMasterList()));
     }
 
 }

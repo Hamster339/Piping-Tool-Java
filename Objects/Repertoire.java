@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -56,8 +57,19 @@ public class Repertoire {
             Scanner myReader = new Scanner(new File("Repertoire/MASTER.prl"));
             if (myReader.nextLine().equals("MASTER")){
                 while (myReader.hasNextLine()) {
-                    String[] data = myReader.nextLine().split(",");
-                    this.masterList.add(new Tune(data[0],Style.convert(data[1]),Timesig.convert(data[2]),data[3]));
+                    String nextLine = myReader.nextLine();
+
+                    //skip if line empty
+                    if (nextLine.equals("")) {
+                        continue;
+                    }
+
+                    String[] data = nextLine.split(",");
+                    String notes = data[3];
+                    if (Objects.equals(notes, "None")){
+                        notes = "";
+                    }
+                    this.masterList.add(new Tune(data[0],Style.convert(data[1]),Timesig.convert(data[2]),notes));
                 }
 
             } else{
@@ -178,7 +190,11 @@ public class Repertoire {
         FileWriter myWriter = new FileWriter("Repertoire/MASTER.prl");
         myWriter.write(String.format("%s\n","MASTER"));
         for (Tune tune:masterList) {
-            myWriter.write(String.format("%s,%s,%s,%s\n", tune.getName(),tune.getStyle(),tune.getTimeSignature(),tune.getSheetMusicLocation()));
+            String notes = tune.getSheetMusicLocation();
+            if (Objects.equals(notes, "")) {
+                notes = "None";
+            }
+            myWriter.write(String.format("%s,%s,%s,%s\n", tune.getName(),tune.getStyle(),tune.getTimeSignature(),notes));
         }
         myWriter.close();
 

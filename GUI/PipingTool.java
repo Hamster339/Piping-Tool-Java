@@ -221,11 +221,11 @@ public class PipingTool extends Application {
         }
     }
 
-    public void DisplayCreateTunePage(){
+    public void DisplayCreateTunePage(NewTuneController parentController){
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateTune.fxml"));
-            fxmlLoader.setController(new CreateTuneController(this));
-            GridPane CreateTuneRoot = fxmlLoader.load();
+            FXMLLoader fxmlLoader3 = new FXMLLoader(getClass().getResource("CreateTune.fxml"));
+            fxmlLoader3.setController(new CreateTuneController(this,parentController));
+            GridPane CreateTuneRoot = fxmlLoader3.load();
 
             ComboBox <Style> StyleSelector = (ComboBox) CreateTuneRoot.lookup("#styleSelector");
             StyleSelector.setItems(FXCollections.observableList(new ArrayList<Style>(java.util.List.of(Style.values()))));

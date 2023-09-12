@@ -11,13 +11,15 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 
-import java.awt.event.ActionEvent;
+import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.util.Objects;
 
 public class CreateTuneController {
 
-    PipingTool mainController;
+    private PipingTool mainController;
+
+    NewTuneController parentController;
 
     @FXML private TextField nameField;
     @FXML private ComboBox <Style> styleSelector;
@@ -27,18 +29,19 @@ public class CreateTuneController {
     @FXML private Button createButton;
 
 
-    public CreateTuneController(PipingTool m){
+    public CreateTuneController(PipingTool m, NewTuneController parentController){
 
         mainController = m;
+        this.parentController = parentController;
     }
 
     @FXML protected void handleCreateNewTune(ActionEvent event){
 
         if (Objects.equals(nameField.getText(), "")){
             helpText.setText("Tune names cannot be blank");
-        } else if (Objects.equals(styleSelector, null)) {
+        } else if (Objects.equals(styleSelector.getValue(), null)) {
             helpText.setText("You must Select a tune style");
-        } else if (Objects.equals(timeSigSelector, null)) {
+        } else if (Objects.equals(timeSigSelector.getValue(), null)) {
             helpText.setText("You must Select a time signature");
         } else {
             mainController.getRep().addTune(new Tune(nameField.getText(),styleSelector.getValue(),timeSigSelector.getValue(),notesField.getText()));
@@ -52,6 +55,8 @@ public class CreateTuneController {
                 System.out.println(e.getMessage());
             }
             stage.close();
+
+            parentController.refresh();
         }
 
     }
