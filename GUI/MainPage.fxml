@@ -8,6 +8,8 @@
     <ToolBar>
         <Button text="New List" fx:id="NewListButton"
                 onAction="#openNewListWindow"/>
+        <Button text="Manage Tunes" fx:id="NewListButton"
+                onAction="#openManageTuneWindow"/>
     </ToolBar>
 
 </Group>

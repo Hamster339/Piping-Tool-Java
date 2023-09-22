@@ -20,6 +20,8 @@ public class MainPageController {
         mainController.DisplayNewListPage();
     }
 
+    @FXML protected void openManageTuneWindow(ActionEvent event) {mainController.displayTuneManager();}
+
     @FXML protected void handleDeleteList(ActionEvent event) {
         ListButton closeButton = (ListButton) event.getSource();
         mainController.AreYouSureWindowDelList(closeButton.list);
@@ -33,7 +35,7 @@ public class MainPageController {
     @FXML protected void handleDeleteTune(ActionEvent event) {
         // get list and tune and remove it
         TuneButton tuneButton = (TuneButton) event.getSource();
-        tuneButton.list.remove(tuneButton.tune);
+        tuneButton.list.remove(tuneButton.tuneNum);
 
         //refresh page
         mainController.displayLists();

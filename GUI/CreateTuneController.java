@@ -35,7 +35,7 @@ public class CreateTuneController {
         this.parentController = parentController;
     }
 
-    @FXML protected void handleCreateNewTune(ActionEvent event){
+    @FXML protected void handleCreateOrEditTune(ActionEvent event){
 
         if (Objects.equals(nameField.getText(), "")){
             helpText.setText("Tune names cannot be blank");

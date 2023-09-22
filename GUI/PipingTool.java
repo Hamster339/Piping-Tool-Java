@@ -292,6 +292,48 @@ public class PipingTool extends Application {
 
         }
     }
+
+    public void displayTuneManager() {
+        try {
+            // load fxml page and associate controller
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TuneManager.fxml"));
+            fxmlLoader.setController(new TuneManagerController(this));
+            GridPane TuneManagerRoot = fxmlLoader.load();
+
+            // list is Vbox where all tunes are displayed in a list
+            VBox list = (VBox) TuneManagerRoot.lookup("#list");
+
+            //loop through all tunes and display them with edit and delete Buttons
+            for (Tune t:getRep().getMasterList()){
+                HBox entry = new HBox();
+
+                Text tune = new Text(t.getName());
+                TuneButton editButton = new TuneButton("Edit",t);
+                editButton.setOnAction(new TuneManagerController(this)::handleEditTune);
+                TuneButton delButton = new TuneButton("Delete",t);
+                delButton.setOnAction(new TuneManagerController(this)::handleDeleteTune);
+
+                entry.getChildren().add(tune);
+                entry.getChildren().add(editButton);
+                entry.getChildren().add(delButton);
+
+                list.getChildren().add(entry);
+            }
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Tune Manager");
+            stage.setScene(new Scene(TuneManagerRoot, 400, 200));
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Error fxml file for tune manager not found or error");
+            System.out.println(e.getMessage());
+
+        }
+    }
+
+
+
     public Repertoire getRep() {
         return rep;
     }
